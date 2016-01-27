@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="well col-xs-12">
+      <div>
+        <h1 style="text-align: center;"><%= @recipe.name %></h1>
+        <h5>Ingredients</h5>
+        <ul>
+          <% @recipe.ingredients.each do |ingredient| %>
+            <li><%= ingredient.name %></li>
+          <% end %>
+        </ul>
+        <h5>Instructions</h5>
+        <p><%= @recipe.instructions %></p>
+        <h5>Tags</h5>
+        <ul>
+          <% @recipe.tags.each do |tag| %>
+            <li><%= tag.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

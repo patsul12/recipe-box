@@ -17,4 +17,8 @@ $(function() {
     tagSize: "md",
     popovers: true
   });
+
+  $('#tag-output').tags({
+    tagSize: "sm"
+  });
 });

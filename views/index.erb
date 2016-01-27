@@ -13,6 +13,12 @@
             </ul>
             <h5>Instructions</h5>
             <p><%= recipe.instructions %></p>
+            <h5>Tags</h5>
+            <ul>
+              <% recipe.tags.each do |tag| %>
+                <li><%= tag.name %></li>
+              <% end %>
+            </ul>
         </div>
       <% end %>
     </div>
@@ -53,6 +59,8 @@
             <div class="col-xs-12">
               <label for="">Tags</label>
               <div id="tag-input"></div>
+              <ul hidden id="tag-list">
+              </ul>
             </div>
           </div>
 
