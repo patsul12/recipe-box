@@ -2,13 +2,25 @@
   <div class="col-lg-6 col-md-6">
     <label for="">Current recipes</label>
     <div class="well">
-
+      <% @recipes.each do |recipe| %>
+        <div class="well">
+          <a href="/recipes/<%= recipe.id %>"><h4><%= recipe.name %></h4></a>
+            <h5>Ingredients</h5>
+            <ul>
+              <% recipe.ingredients.each do |ingredient| %>
+                <li><%= ingredient.name %></li>
+              <% end %>
+            </ul>
+            <h5>Instructions</h5>
+            <p><%= recipe.instructions %></p>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="col-lg-6 col-md-6">
     <label for="">Create recipe</label>
     <div class="well">
-      <form class="" action="/recipe" method="post" id="ingredient-form">
+      <form class="" action="/recipes" method="post" id="ingredient-form">
         <div class="ingredient-list">
           <div class="form-group">
             <input class="form-control" type="text" name="recipe_name" placeholder="Enter a name...">
@@ -17,16 +29,15 @@
             <label for="">Ingredients</label>
             <div class="input-group">
               <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Ingredient <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li class="ingredient"><a href="#">Action</a></li>
-                    <li class="ingredient"><a href="#">Another action</a></li>
-                    <li class="ingredient"><a href="#">Something else here</a></li>
-                    <li class="ingredient"><a href="#">Separated link</a></li>
+                    <% @ingredients.each do |ingredient| %>
+                      <li><a href="#" class="ingredient"><%= ingredient.name %></a></li>
+                    <% end %>
                   </ul>
                 </div><!-- /btn-group -->
               </div>
-              <input id="ingredient_input" type="text" class="form-control" aria-label="..." value="hello">
+              <input name="ingredient0" type="text" class="form-control" aria-label="...">
             </div>
           </div>
           <div class="form-group">
@@ -36,6 +47,13 @@
           <div class="form-group">
             <label for="instructions">Instructions</label>
             <textarea class="col-xs-12" name="instructions" placeholder="Enter instructions here..."></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <label for="">Tags</label>
+              <div id="tag-input"></div>
+            </div>
           </div>
 
           <button style="margin-top: 10px;"class="btn btn-primary" type="submit" name="button">Create Recipe</button>
