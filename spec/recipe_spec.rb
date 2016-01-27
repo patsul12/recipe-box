@@ -12,3 +12,12 @@ describe Recipe do
     end
   end
 end
+
+describe Tag do
+  describe "#new" do
+    it 'creates a new tag' do
+      new_tag = Tag.create({name: "tagName"})
+      expect(new_tag.name).to(eq("tagName"))
+    end
+  end
+end
