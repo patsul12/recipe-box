@@ -54,3 +54,50 @@ get '/recipes/:id' do
   @recipe = Recipe.find(params[:id])
   erb :recipe
 end
+
+patch '/recipes/:id' do
+  @recipe = Recipe.find(params[:id])
+  @ingredients = Ingredient.all
+  @tags = Tag.all
+  ingredient_list = []
+  tag_list = []
+  params.each do |param|
+    if (/ingredient\d/.match(param[0]))
+      if (Ingredient.find_by(name: param[1]).name != param[1])
+        ingredient_list.push(Ingredient.create(name: param[1]))
+      else
+        ingredient_list.push(Ingredient.find_by(name: param[1]))
+      end
+    end
+  end
+
+  params.each do |param|
+    if (/tag\d/.match(param[0]))
+      if (Tag.find_by(name: param[1]).name != param[1])
+        tag_list.push(Tag.create(name: param[1]))
+      else
+        tag_list.push(Tag.find_by(name: param[1]))
+      end
+    end
+  end
+
+  name = params[:recipe_name]
+  instructions = params[:instructions]
+  ingredient_list.each do |ingredient|
+    if !@recipe.ingredients.include?(ingredient)
+      @recipe.ingredients.push(ingredient)
+    end
+  end
+  tag_list.each do |tag|
+    if !@recipe.tags.include?(tag)
+      @recipe.tags.push(tag)
+    end
+  end
+  @recipe.update(name: name)
+  redirect "/recipes/#{@recipe.id}"
+end
+
+delete '/recipes/:id' do
+  Recipe.find(params[:id]).destroy
+  redirect "/"
+end

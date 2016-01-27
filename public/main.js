@@ -18,7 +18,21 @@ $(function() {
     popovers: true
   });
 
+  var tagData = [];
+
+  $("#tag-list").empty();
+  $(".tag").each(function() {
+    $("#tag-list").append($("<li/>")
+                  .append($("<input>", {'name': 'tag'+counter, 'value': $(this).html()})));
+    counter++;
+  });
+
+  $(".tag").each(function() {
+    tagData.push($(this).text());
+  });
+
   $('#tag-output').tags({
+    tagData: tagData,
     tagSize: "sm"
   });
 });
