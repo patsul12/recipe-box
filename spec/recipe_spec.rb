@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe Recipe do
   describe "#new" do
@@ -19,5 +20,20 @@ describe Tag do
       new_tag = Tag.create({name: "tagName"})
       expect(new_tag.name).to(eq("tagName"))
     end
+  end
+end
+
+describe "database" do
+  it 'creates a new recipe and tag' do
+    new_tag = Tag.create({name: "tagName"})
+    new_recipe = Recipe.create({ingredients: "things", instructions: "eat"})
+    new_recipe.tags.push(new_tag)
+    expect(new_tag.recipes).to(eq([new_recipe]))
+  end
+  it 'creates a new recipe and tag' do
+    new_tag = Tag.create({name: "tagName"})
+    new_recipe = Recipe.create({ingredients: "things", instructions: "eat"})
+    new_tag.recipes.push(new_recipe)
+    expect(new_recipe.tags).to(eq([new_tag]))
   end
 end
