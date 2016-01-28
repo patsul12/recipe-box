@@ -60,7 +60,6 @@ patch '/recipes/:id' do
   @ingredients = Ingredient.all
   @tags = Tag.all
   ingredient_list = []
-  tag_list = []
   params.each do |param|
     if (/ingredient\d/.match(param[0]))
       if (Ingredient.find_by(name: param[1]).name != param[1])
@@ -71,13 +70,9 @@ patch '/recipes/:id' do
     end
   end
 
-  params.each do |param|
-    if (/tag\d/.match(param[0]))
-      if (Tag.find_by(name: param[1]).name != param[1])
-        tag_list.push(Tag.create(name: param[1]))
-      else
-        tag_list.push(Tag.find_by(name: param[1]))
-      end
+  if params[:add_tag].length > 0
+    if (Tag.find_by(name: params[:add_tag]).nil?)
+      @recipe.tags.push(Tag.create(name: params[:add_tag]))
     end
   end
 
@@ -86,11 +81,6 @@ patch '/recipes/:id' do
   ingredient_list.each do |ingredient|
     if !@recipe.ingredients.include?(ingredient)
       @recipe.ingredients.push(ingredient)
-    end
-  end
-  tag_list.each do |tag|
-    if !@recipe.tags.include?(tag)
-      @recipe.tags.push(tag)
     end
   end
   @recipe.update(name: name)

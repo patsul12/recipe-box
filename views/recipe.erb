@@ -50,7 +50,7 @@
                     </div><!-- /btn-group -->
                   </div>
                   <% @recipe.ingredients.each do |ingredient| %>
-                    <input name="ingredient<%= ingredient.id %>" type="text" class="form-control" aria-label="..." value="<%= ingredient.name %>">
+                    <input required name="ingredient<%= ingredient.id %>" type="text" class="form-control" aria-label="..." value="<%= ingredient.name %>">
                   <% end %>
                 </div>
               </div>
@@ -68,13 +68,17 @@
                 <% end %>
               </ul>
 
-              <div class="row">
+              <div class="form-group">
                 <div class="col-xs-12">
                   <label for="">Tags</label>
                   <div id="tag-output"></div>
                   <ul hidden id="tag-list">
                   </ul>
                 </div>
+              </div>
+
+              <div class="form-group">
+                <input style="margin-top: 40px;" type="text" name="add_tag" placeholder="Add a tag...">
               </div>
 
               <button style="margin-top: 20px;"class="btn btn-primary" type="submit" name="button">Create Recipe</button>
